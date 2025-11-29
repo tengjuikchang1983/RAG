@@ -1,9 +1,18 @@
 import streamlit as st
 from app.rag import chunk, index_texts, answer
 from app.ingest import read_pdf, read_txt
+from app.guardrails import is_enabled, require_context, set_enabled, set_require_context, set_max_query_chars
 
 st.set_page_config(page_title="Local Ollama RAG", layout="centered")
 st.title("Local Ollama RAG (Qwen3:4b + Qdrant)")
+
+st.sidebar.header("Guardrails")
+en = st.sidebar.checkbox("Enable guardrails", value=is_enabled())
+rc = st.sidebar.checkbox("Require indexed context", value=require_context())
+mql = st.sidebar.slider("Max query length", min_value=100, max_value=8000, value=2000, step=100)
+set_enabled(en)
+set_require_context(rc)
+set_max_query_chars(mql)
 
 st.header("Index Text")
 text = st.text_area("Paste text to index", height=200)
