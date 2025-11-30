@@ -10,9 +10,6 @@ services:
       OLLAMA_CHAT_MODEL: qwen3:4b
       OLLAMA_TIMEOUT: "300"
       OLLAMA_KEEP_ALIVE: "1h"
-      GUARDRAILS_ENABLE: "true"
-      GUARDRAILS_REQUIRE_CONTEXT: "true"
-      MAX_QUERY_CHARS: "2000"
       QDRANT_URL: http://qdrant:6333
       QDRANT_COLLECTION: docs
     ports:

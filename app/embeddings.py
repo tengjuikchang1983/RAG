@@ -21,3 +21,12 @@ def embed_text(text: str) -> List[float]:
             pass
     _ensure_st()
     return _st.encode(text, normalize_embeddings=True).tolist()
+
+def set_use_ollama_embed(v: bool):
+    global USE_OLLAMA_EMBED
+    USE_OLLAMA_EMBED = v
+
+def set_st_model_name(name: str):
+    global _st_name, _st
+    _st_name = name
+    _st = None
