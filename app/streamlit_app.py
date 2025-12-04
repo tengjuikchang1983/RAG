@@ -5,7 +5,7 @@ from app.ollama_client import list_models, set_chat_model, set_embed_model, get_
 from app.embeddings import set_use_ollama_embed, set_st_model_name
 
 st.set_page_config(page_title="Local Ollama RAG", layout="centered")
-st.title("Local Ollama RAG (Qwen3:4b + Qdrant)")
+st.title("Local Ollama RAG (Ministral-3:8b + Qdrant)")
 
 # Guardrails removed
 
