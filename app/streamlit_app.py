@@ -1,5 +1,6 @@
 import streamlit as st
 from app.rag import chunk, index_texts, answer, index_document, list_docs, delete_doc, get_doc_preview
+from app.qdrant_store import delete_all
 from app.ingest import read_pdf, read_txt
 from app.ollama_client import list_models, set_chat_model, set_embed_model, get_chat_model, get_embed_model, set_host, get_host
 from app.embeddings import set_use_ollama_embed, set_st_model_name
@@ -75,6 +76,10 @@ if docs:
                 delete_doc(options[name])
             st.success(f"Deleted {len(selected)} document(s)")
             # Refresh list after deletion
+            docs = list_docs()
+        if st.button("Delete All"):
+            delete_all()
+            st.success("Deleted all documents in the vector store")
             docs = list_docs()
 else:
     st.info("No indexed files yet.")

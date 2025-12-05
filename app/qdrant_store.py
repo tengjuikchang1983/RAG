@@ -23,12 +23,15 @@ def search(query_vec, limit=5):
     return client.search(collection_name=COLLECTION, query_vector=query_vec, limit=limit)
 
 def list_docs(limit=1000):
-    points, _ = client.scroll(
-        collection_name=COLLECTION,
-        limit=limit,
-        with_payload=True,
-        with_vectors=False,
-    )
+    try:
+        points, _ = client.scroll(
+            collection_name=COLLECTION,
+            limit=limit,
+            with_payload=True,
+            with_vectors=False,
+        )
+    except Exception:
+        return []
     agg = {}
     for p in points:
         pl = p.payload or {}
@@ -65,3 +68,9 @@ def get_chunks_by_doc_id(doc_id: str, limit: int = 3):
         filter=flt,
     )
     return [p.payload.get("text", "") for p in points]
+
+def delete_all():
+    try:
+        client.delete_collection(collection_name=COLLECTION)
+    except Exception:
+        pass
